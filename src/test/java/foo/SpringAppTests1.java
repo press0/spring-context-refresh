@@ -13,23 +13,21 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:spring-config.xml")
 public class SpringAppTests1 {
-    @Autowired
-    private HelloService helloService;
 
-    @Autowired
-    private String string;
+    @Autowired HelloService helloService;
+    @Autowired String string;
 
     @Test
     public void testSayHello() {
 
-        Assert.assertEquals("foo", string);
         Assert.assertEquals("Hello world!", helloService.sayHello());
 
+        Assert.assertEquals("foo", string);
         ApplicationContext ctx = new FileSystemXmlApplicationContext("classpath:spring-config2.xml");
         ((ConfigurableApplicationContext) ctx).refresh();
         string = ctx.getBean(String.class);
-
         Assert.assertEquals("bar", string);
+
 
     }
 }
